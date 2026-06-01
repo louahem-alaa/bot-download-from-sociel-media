@@ -1,0 +1,15 @@
+services:
+  - type: worker
+    name: telegram-video-downloader-bot
+    env: python
+    plan: starter
+    buildCommand: apt-get update && apt-get install -y ffmpeg && pip install -r requirements.txt
+    startCommand: python bot.py
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: MAX_CONCURRENT_DOWNLOADS
+        value: "2"
+      - key: MAX_FILE_SIZE
+        value: "52428800"
